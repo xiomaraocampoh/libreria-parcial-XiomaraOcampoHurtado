@@ -56,5 +56,31 @@ Justificación: La forma de redondeo afecta el resultado final y puede crear dis
 
 ---
 
-Commit: análisis inicial para la Parte 1 (README actualizado con particiones y límites).
+# PARTE 2 — Casos de prueba (10 minutos) 
 
+Diseña una tabla en el `README.md` con mínimo 8 casos de prueba usando el formato:
+
+```
+ID | Regla | Descripción | Precondición | Datos de entrada | Pasos | Resultado esperado | Tipo
+```
+
+Los tipos son Positivo, Negativo o Borde. Los 8 casos deben distribuirse entre las tres reglas e incluir al menos dos de borde y al menos dos negativos.
+
+**Regla 1:** Un producto tiene nombre y precio base. El precio base debe ser mayor que cero. Si se intenta crear un producto con precio cero o negativo, el sistema debe rechazarlo con un mensaje claro.
+
+**Regla 2:** Se puede aplicar un descuento porcentual al producto. El descuento debe estar entre 0% y 40%. Un descuento mayor al 40% debe ser rechazado. Un descuento del 0% es válido.
+
+**Regla 3:** El precio final se calcula aplicando primero el descuento y luego el IVA del 19% sobre el resultado. El precio final nunca puede ser negativo.
+
+## Casos de prueba: 
+
+| ID | REGLA | DESCRIPCIÓN | PRECONDICIÓN | DATOS DE ENTRADA | PASOS | RESULTADO ESPERADO | TIPO |
+|:-- |:-- |:-- |:-- |:-- |:-- |:-- |:-- |
+| T01 | Regla 1 | Crear producto con precio base válido | Sistema listo; no hay productos previos | Nombre: "Laptop", Precio base: $3,500 | 1. Ingresar nombre "Laptop" 2. Ingresar precio base $3,500 3. Confirmar creación | Producto creado exitosamente con nombre "Laptop" y precio base $3,500 | Positivo |
+| T02 | Regla 1 | Crear producto con precio mínimo válido (borde) | Sistema listo; no hay productos previos | Nombre: "Artículo", Precio base: $0.01 | 1. Ingresar nombre "Artículo" 2. Ingresar precio base $0.01 3. Confirmar creación | Producto creado exitosamente (borde inferior válido) | Borde |
+| T03 | Regla 1 | Rechazar producto con precio cero | Sistema listo; no hay productos previos | Nombre: "Producto", Precio base: $0 | 1. Ingresar nombre "Producto" 2. Ingresar precio base $0 3. Intentar confirmar | El sistema rechaza la creación con mensaje: "Precio debe ser mayor que cero" | Negativo |
+| T04 | Regla 2 | Aplicar descuento válido dentro del rango | Producto existente: nombre "Mouse", precio base $100 | Descuento: 20% | 1. Seleccionar producto "Mouse" 2. Ingresar descuento 20% 3. Aplicar descuento | Descuento aplicado correctamente (20% válido) | Positivo |
+| T05 | Regla 2 | Aplicar descuento en borde superior (40%) | Producto existente: nombre "Teclado", precio base $200 | Descuento: 40% | 1. Seleccionar producto "Teclado" 2. Ingresar descuento 40% 3. Aplicar descuento | Descuento aplicado correctamente (borde superior válido) | Borde |
+| T06 | Regla 2 | Rechazar descuento mayor al 40% | Producto existente: nombre "Monitor", precio base $500 | Descuento: 50% | 1. Seleccionar producto "Monitor" 2. Ingresar descuento 50% 3. Intentar aplicar | El sistema rechaza con mensaje: "Descuento fuera de rango. Máximo permitido: 40%" | Negativo |
+| T07 | Regla 3 | Calcular precio final con descuento e IVA correctamente | Producto con precio base $1,000 y descuento 20% | Precio base: $1,000, Descuento: 20%, IVA: 19% | 1. Calcular precio con descuento: $1,000 - 20% = $800 2. Aplicar IVA 19%: $800 × 1.19 = $952 3. Verificar resultado | Precio final calculado: $952 (correcto: ($1,000 - 20%) × 1.19) | Positivo |
+| T08 | Regla 3 | Verificar precio final positivo con descuento máximo (borde) | Producto con precio base $100 y descuento 40% | Precio base: $100, Descuento: 40%, IVA: 19% | 1. Calcular precio con descuento máximo: $100 - 40% = $60 2. Aplicar IVA 19%: $60 × 1.19 = $71.40 3. Verificar que sea positivo | Precio final: $71.40 (positivo, borde de descuento máximo) | Borde |
