@@ -14,7 +14,7 @@ class  RegistroProductos:
         return self.productos.get(nombre) 
     
     def aplicar_descuento(self, nombre, porcentaje_descuento):
-        if porcentaje_descuento < 0 or porcentaje_descuento >40:
+        if porcentaje_descuento <= 0 or porcentaje_descuento > 40:
             raise ValueError("Descuento fuera de rango. Máximo permitido: 40%")
         producto = self.obtener_producto(nombre)
         if producto is None:
